@@ -1,117 +1,51 @@
-import React, { useState } from "react";
-import { Mail, ShieldCheck, Star, ThumbsUp, Menu, X } from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { ShieldCheck, Star, ThumbsUp, ChevronRight } from "lucide-react";
+
 import heroimage from "../assets/housewife-young-smiling-woman-with-basin-with-cleansing-appliances.jpg";
 
-const Hero = () => {
+const Hero = ({ onNavigate = () => {} }) => {
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    /* Fade-in animation */
+    const faders = document.querySelectorAll(".fade-in");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.25 }
+    );
+
+    faders.forEach((el) => observer.observe(el));
+
+    /* Carousel animation */
+    const track = document.querySelector(".carousel-track");
+    if (!track) return;
+
+    let index = 0;
+    const slides = document.querySelectorAll(".carousel-slide");
+
+    const interval = setInterval(() => {
+      index = (index + 1) % slides.length;
+      track.style.transform = `translateX(-${index * 100}%)`;
+    }, 4500);
+
+    return () => {
+      clearInterval(interval);
+      observer.disconnect();
+    };
+  }, []);
 
   return (
     <div className="bg-white font-sans text-slate-800 h-fit w-full">
-   {/* --- NAVIGATION --- */}
-      <nav className="relative flex items-center justify-between px-4 sm:px-6 py-4 max-w-7xl mx-auto z-30">
-        <div className="flex items-center gap-2 sm:gap-3 group cursor-pointer flex-shrink-0">
-          {/* Modernized Icon Container - Smaller on mobile */}
-          <div className="relative flex items-center justify-center">
-            <div className="absolute inset-0 bg-[#56ab2f] blur-md opacity-0 group-hover:opacity-20 transition-opacity duration-500 rounded-full" />
-            
-            <div className="relative bg-gradient-to-br from-[#56ab2f] to-[#4a9328] p-1.5 sm:p-2 rounded-xl shadow-sm group-hover:shadow-emerald-200 group-hover:-rotate-12 transition-all duration-500 ease-out">
-              <div className="border-[2.5px] border-white w-4 h-4 sm:w-5 sm:h-5 rounded-md flex items-center justify-center">
-                <div className="bg-white w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full animate-pulse" />
-              </div>
-            </div>
-          </div>
-
-          {/* Brand Text Stack - Smaller text on mobile */}
-          <div className="flex flex-col">
-            <div className="flex items-center">
-              <span className="text-[#2d5a84] font-black text-xl sm:text-2xl tracking-[calc(-0.05em)] leading-none group-hover:text-[#56ab2f] transition-colors duration-300">
-                OZED
-              </span>
-              <span className="w-1.5 h-1.5 bg-[#56ab2f] rounded-full ml-0.5 mt-1.5 sm:mt-2 opacity-0 group-hover:opacity-100 transition-all duration-500 scale-0 group-hover:scale-100" />
-            </div>
-            
-            <div className="overflow-hidden">
-              <span className="text-[8px] sm:text-[9px] block leading-none font-bold text-slate-400 uppercase tracking-[0.3em] translate-y-0 group-hover:-translate-y-full transition-transform duration-500">
-                Cleaning Service
-              </span>
-              <span className="text-[8px] sm:text-[9px] block leading-none font-bold text-[#56ab2f] uppercase tracking-[0.3em] translate-y-full group-hover:-translate-y-full transition-transform duration-500">
-                Professional
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* Desktop Nav Links */}
-        <div className="hidden md:flex items-center gap-8 font-medium text-slate-600">
-          <a className="text-[#56ab2f] border-b-2 border-[#56ab2f] cursor-pointer">Home</a>
-          <a className="hover:text-[#56ab2f] cursor-pointer transition-colors">About Us</a>
-          <a className="hover:text-[#56ab2f] cursor-pointer transition-colors">Services</a>
-          <a className="hover:text-[#56ab2f] cursor-pointer transition-colors">Pricing</a>
-          <a className="hover:text-[#56ab2f] cursor-pointer transition-colors">Contact</a>
-          <div className="flex items-center gap-2 text-slate-400 text-sm ml-4">
-            <Mail size={14} />
-            <span>info@ozedcleaning.co.uk</span>
-          </div>
-        </div>
-
-        {/* Mobile Hamburger Button */}
-        <div className="md:hidden">
-          <button
-            className="text-slate-700 focus:outline-none transition-transform active:scale-95"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X size={28} /> : <Menu size={28} />}
-          </button>
-        </div>
-
-        {/* Mobile Menu Dropdown */}
-        <div
-          className={`md:hidden absolute top-full left-0 right-0 bg-white shadow-2xl border-t border-slate-200 z-50 transition-all duration-300 ease-in-out overflow-hidden ${
-            isOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0 pointer-events-none"
-          }`}
-        >
-          <div className="flex flex-col items-center gap-6 py-8 px-6 text-center font-medium text-slate-700">
-            <a
-              className="text-[#56ab2f] text-lg hover:text-[#4a9328] transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            >
-              Home
-            </a>
-            <a
-              className="text-lg hover:text-[#56ab2f] transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            >
-              About Us
-            </a>
-            <a
-              className="text-lg hover:text-[#56ab2f] transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            >
-              Services
-            </a>
-            <a
-              className="text-lg hover:text-[#56ab2f] transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            >
-              Pricing
-            </a>
-            <a
-              className="text-lg hover:text-[#56ab2f] transition-colors cursor-pointer"
-              onClick={() => setIsOpen(false)}
-            >
-              Contact
-            </a>
-            <div className="flex items-center gap-3 text-slate-500 mt-4 pt-4 border-t border-slate-100 w-full justify-center">
-              <Mail size={16} />
-              <span className="text-sm">info@ozedcleaning.co.uk</span>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      {/* --- HERO SECTION --- */}
-      <main className=" relative overflow-hidden bg-gradient-to-r from-slate-50 to-white">
+      {/* HERO SECTION */}
+      <main className="relative overflow-hidden bg-linear-to-r from-slate-50 to-white">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
@@ -119,64 +53,67 @@ const Hero = () => {
             alt="Professional cleaning service"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-b from-white/90 via-white/30 to-white/30 md:bg-gradient-to-l md:from-transparent md:via-white/50 md:to-white" />
+          <div className="absolute inset-0 bg-linear-to-b from-white/90 via-white/30 to-white/30 md:bg-linear-to-l md:from-transparent md:via-white/50 md:to-white" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-24 min-h-[70vh] md:min-h-[80vh] lg:min-h-screen flex items-center">
           <div className="w-full md:w-1/2 space-y-6 md:space-y-8 text-center md:text-left">
-            <h1 className="text-4xl sm:text-5xl md:text-5xl lg:text-5xl font-extrabold text-[#0b0642] leading-tight">
+            <h1 className="text-4xl sm:text-5xl font-extrabold text-[#0b0642] leading-tight">
               Expert Deep Cleaning Services in Bexley, UK
             </h1>
 
-            <p className="text-2xl sm:text-3xl md:text-3xl text-[#0b0642e5] font-semibold">
+            <p className="text-2xl sm:text-3xl text-[#0b0642e5] font-semibold">
               Only{" "}
-              <span className="text-[#56ab2f] text-4xl sm:text-5xl md:text-5xl font-bold">
+              <span className="text-[#56ab2f] text-4xl sm:text-5xl font-bold">
                 £30
               </span>{" "}
               Per Room
             </p>
 
-            <p className="text-lg sm:text-xl md:text-lg text-[#0b0642d0] font-medium italic">
+            <p className="text-lg text-[#0b0642d0] font-medium italic">
               Professional & Reliable Cleaning for Your Home
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center md:justify-start">
-              <button className="w-full sm:w-auto bg-gradient-to-t from-[#2c700d] to-[#4a9328] hover:from-[#4a9328] hover:to-[#3c7a20] text-white px-8 py-3 rounded-lg font-bold text-lg shadow-lg shadow-green-100 transition active:scale-95">
+              <button className="bg-linear-to-t from-[#2c700d] to-[#4a9328] text-white px-8 py-3 rounded-lg font-bold text-lg shadow-lg transition active:scale-95">
                 Get a Quote
               </button>
-              <button className="w-full sm:w-auto bg-gradient-to-t from-[#1c4b77] to-[#23486a] hover:from-[#23486a] hover:to-[#1b3a55] text-white px-8 py-3 rounded-lg font-bold text-lg shadow-lg shadow-blue-100 transition active:scale-95">
+              <button className="bg-linear-to-t from-[#1c4b77] to-[#23486a] text-white px-8 py-3 rounded-lg font-bold text-lg shadow-lg transition active:scale-95">
                 Book a Cleaning
               </button>
             </div>
 
             {/* BADGES */}
-            <div className="pt-10 md:pt-12 flex flex-wrap justify-center md:justify-start items-center gap-6 md:gap-10">
+            <div className="pt-10 flex flex-wrap justify-center md:justify-start gap-8">
               {[
-                { icon: <ShieldCheck />, label: "Fully Insured", desc: "£5m Public Liability" },
-                { icon: <Star />, label: "Top Rated", desc: "4.9/5 Average Rating" },
-                { icon: <ThumbsUp />, label: "Expert Staff", desc: "DBS Checked & Vetted" }
+                {
+                  icon: <ShieldCheck />,
+                  label: "Fully Insured",
+                  desc: "£5m Public Liability",
+                },
+                {
+                  icon: <Star />,
+                  label: "Top Rated",
+                  desc: "4.9/5 Average Rating",
+                },
+                {
+                  icon: <ThumbsUp />,
+                  label: "Expert Staff",
+                  desc: "DBS Checked & Vetted",
+                },
               ].map((badge, index) => (
-                <div 
-                  key={index} 
-                  className="flex items-start gap-3 md:gap-4 group cursor-default"
-                >
-                  <div className="relative">
-                    <div className="absolute inset-0 bg-[#56ab2f] opacity-20 blur-lg group-hover:opacity-40 transition-opacity rounded-full"></div>
-                    <div className="relative flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-2xl bg-white border border-slate-100 shadow-sm group-hover:shadow-emerald-100 group-hover:-translate-y-1 transition-all duration-300">
-                      <div className="text-[#56ab2f]">
-                        {React.cloneElement(badge.icon, { size: 20, strokeWidth: 2.5 })}
-                      </div>
-                    </div>
+                <div key={index} className="flex items-start gap-3">
+                  <div className="w-11 h-11 rounded-xl bg-white shadow flex items-center justify-center text-[#56ab2f]">
+                    {React.cloneElement(badge.icon, {
+                      size: 22,
+                      strokeWidth: 2.5,
+                    })}
                   </div>
-
-                  <div className="flex flex-col space-y-0.5 text-left">
-                    <span className="text-sm md:text-base font-extrabold text-[#0b0642ef] tracking-tight leading-none group-hover:text-[#56ab2f] transition-colors">
-                      {badge.label}
-                    </span>
-                    <span className="text-[10px] md:text-[11px] text-slate-500 font-semibold tracking-wide uppercase italic">
+                  <div>
+                    <p className="font-bold text-[#0b0642]">{badge.label}</p>
+                    <p className="text-xs text-slate-500 uppercase italic">
                       {badge.desc}
-                    </span>
-                    <div className="h-[2px] w-0 bg-[#56ab2f]/40 group-hover:w-full transition-all duration-500"></div>
+                    </p>
                   </div>
                 </div>
               ))}
@@ -185,21 +122,62 @@ const Hero = () => {
         </div>
       </main>
 
-      {/* Bottom Shape */}
-     <div className="relative w-full h-24 sm:h-32 -mt-16 sm:-mt-20 z-20 overflow-hidden bg-transparent">
-        <svg
-          viewBox="0 0 1440 320"
-          className="absolute bottom-0 left-0 w-full h-full fill-white"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="#ffffff"
-            fillOpacity="1"
-            d="M0,96L48,112C96,128,192,160,288,176C384,192,480,192,576,176C672,160,768,128,864,122.7C960,117,1056,139,1152,144C1248,149,1344,139,1392,133.3L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          ></path>
-        </svg>
-        <div className="absolute inset-0 shadow-[0_-10px_20px_-10px_rgba(0,0,0,0.05)] pointer-events-none" />
-      </div>
+      {/* ABOUT TEASER */}
+      <section className="py-16 md:py-24 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-14 items-center">
+
+            {/* Image Carousel */}
+            <div className="order-2 lg:order-1 fade-in">
+              <div className="image-frame max-w-md mx-auto lg:mx-0">
+                <div className="carousel rounded-xl">
+                  <div className="carousel-track">
+                    {[
+                      "https://images.pexels.com/photos/7546651/pexels-photo-7546651.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                      "https://images.pexels.com/photos/271816/pexels-photo-271816.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                      "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1200",
+                    ].map((src, i) => (
+                      <div key={i} className="carousel-slide">
+                        <img
+                          src={src}
+                          alt="Luxury home interior"
+                          loading="lazy"
+                          className="w-full h-[280px] object-cover rounded-xl filter brightness-95 contrast-105 saturate-90"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Text */}
+            <div className="order-1 lg:order-2 space-y-8 fade-in">
+              <h3 className="text-3xl md:text-4xl font-bold text-[#0b0642]">
+                Why Choose Ozed?
+              </h3>
+
+              <p className="text-lg text-gray-700 max-w-xl">
+                Expert deep-cleaning services crafted for refined homes in
+                Bexley. Our discreet professionals deliver impeccable results
+                using premium, eco-conscious products.
+              </p>
+
+       <button
+  onClick={() => {
+    onNavigate("about");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }}
+  className="group inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-t from-[#1c4b77] to-[#23486a] text-white text-lg font-medium hover:brightness-110 transition-all shadow-lg active:scale-95"
+>
+  Discover Our Standards 
+  <ChevronRight className="ml-2 transition-transform group-hover:translate-x-1" size={20} />
+</button>
+            </div>
+
+          </div>
+        </div>
+      </section>
     </div>
   );
 };

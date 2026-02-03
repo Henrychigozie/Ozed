@@ -1,17 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import Hero from './Components/Hero.jsx'
+import { useState } from "react";
+import "./App.css";
+import Navbar from "./Components/Navbar.jsx";
+import Hero from "./Components/Hero.jsx";
+import AboutUs from "./Components/about.jsx";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [page, setPage] = useState("home");
 
   return (
     <>
-      <Hero />
+      <Navbar onNavigate={setPage} currentPage={page} />
+      {page === "home" && <Hero onNavigate={setPage} />}
+      {page === "about" && <AboutUs />}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

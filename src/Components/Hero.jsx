@@ -8,7 +8,7 @@ import {
 import FooterSection from "../Components/footer";
 import heroimage from "../assets/housewife-young-smiling-woman-with-basin-with-cleansing-appliances.jpg";
 
-const Hero = ({ onNavigate = () => {} }) => {
+const Hero = () => {
   // 1. STATE FOR DROPDOWN AND IMAGE LOADING
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("Select a Service");
@@ -286,12 +286,13 @@ const Hero = ({ onNavigate = () => {} }) => {
     </div>
 
     <div className="mt-16 text-center fade-in">
-      <button 
-        onClick={() => onNavigate("services")}
-        className="bg-[#e91e63] hover:bg-[#d81557] text-white px-10 py-4 rounded-lg font-bold text-lg shadow-lg transition-all active:scale-95"
-      >
-        Book a service
-      </button>
+     <Link 
+                to="/service"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="inline-block bg-[#e91e63] hover:bg-[#d81557] text-white px-10 py-4 rounded-lg font-bold text-lg shadow-lg transition-all active:scale-95"
+              >
+                Book a service
+              </Link>
       <p className="mt-4 text-slate-400 text-sm font-medium">Book a service in 30 seconds</p>
     </div>
   </div>

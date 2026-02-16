@@ -78,7 +78,7 @@ const Hero = () => {
     src={heroimage}
     alt="Professional cleaning service"
     onLoad={() => setImageLoaded(true)}
-    className={`w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
+    className={`w-full h-full object-cover object-left transition-opacity duration-1000 ease-in-out ${
       imageLoaded ? "opacity-100" : "opacity-0"
     }`}
   />
@@ -86,7 +86,7 @@ const Hero = () => {
   {/* --- Overlay Layer --- */}
   {/* This creates a fade from the left (solid) to the right (transparent) */}
   <div 
-    className={`absolute inset-0 transition-opacity duration-1000 bg-linear-to-r from-slate-100 via-slate-100/60 to-transparent md:w-2/3 ${
+    className={`absolute inset-0 transition-opacity duration-1000 bg-linear-to-r from-slate-100 via-slate-100/20 to-transparent md:w-2/3 ${
       imageLoaded ? "opacity-100" : "opacity-0"
     }`} 
   />

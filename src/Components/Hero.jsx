@@ -72,78 +72,49 @@ const Hero = () => {
         </p>
       </div>
       {/* HERO SECTION */}
-<main className="relative overflow-hidden bg-slate-100 w-full min-h-screen">
-
-  {/* Background Image */}
+    <main className="relative overflow-hidden bg-slate-100">
   <div className="absolute inset-0 z-0">
-
     <img
       src={heroimage}
       alt="Professional cleaning service"
       onLoad={() => setImageLoaded(true)}
-      className={`w-full h-full object-cover object-left transition-opacity duration-1000 ease-in-out ${
+      className={`w-full h-full object-cover object-center transition-opacity duration-1000 ease-in-out ${
         imageLoaded ? "opacity-100" : "opacity-0"
       }`}
     />
-
-    {/* Professional overlay */}
-    <div className="absolute inset-0 bg-white/40"></div>
-
   </div>
 
-
-  {/* Content */}
-  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 min-h-screen flex items-center">
-
+  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 min-h-[70vh] md:min-h-[80vh] lg:min-h-screen flex items-center">
+    {/* Constraining width to md:w-5/12 ensures the text doesn't cover the right side of the image */}
     <div className="w-full md:w-5/12 space-y-4 md:space-y-6 text-center md:text-left">
-
-      <h1 className="text-3xl lg:text-4xl font-extrabold text-[#0b0642] leading-tight">
+      
+      {/* Reduced H1: 4xl/5xl -> 3xl/4xl */}
+      <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0b0642] leading-tight">
         Expert Cleaning Services in London
       </h1>
 
-
-      <p className="text-xl lg:text-2xl text-[#0b0642e5] font-semibold">
-
+      {/* Reduced Pricing: 3xl/5xl -> xl/3xl */}
+      <p className="text-lg sm:text-xl text-[#0b0642e5] font-semibold">
         Starting from{" "}
-
-        <span className="text-[#56ab2f] text-3xl lg:text-4xl font-bold">
-
+        <span className="text-[#56ab2f] text-2xl sm:text-3xl lg:text-4xl font-bold">
           £25 - £30
-
         </span>{" "}
-
-        <span className="text-sm md:text-base">
-          Per Room
-        </span>
-
+        <span className="text-sm font-medium">Per Room</span>
       </p>
 
-
-
+      {/* Reduced italic text: lg -> sm/base */}
       <p className="text-sm md:text-base text-[#0b0642d0] font-medium italic">
-
         Professional & Reliable Cleaning for Your Home
-
       </p>
 
-
-
-      {/* Button */}
       <div className="flex flex-col sm:flex-row gap-4 pt-2 justify-center md:justify-start">
-
-        <button className="bg-gradient-to-t from-[#1c4b77] to-[#23486a] text-white px-7 py-2.5 rounded-lg font-bold text-base shadow-lg transition active:scale-95 hover:brightness-125 hover:scale-105">
-
+        <button className="bg-linear-to-t from-[#1c4b77] to-[#23486a] text-white px-6 py-2.5 rounded-lg font-bold text-sm md:text-base shadow-lg transition active:scale-95 hover:brightness-140 ">
           Book a Cleaning
-
         </button>
-
       </div>
 
-
-
-      {/* Badges */}
-      <div className="pt-6 flex flex-wrap justify-center md:justify-start gap-5">
-
+      {/* Compact Badges: smaller icons and text sizes */}
+      <div className="pt-6 flex flex-wrap justify-center md:justify-start gap-4 md:gap-6">
         {[
           {
             icon: <ShieldCheck />,
@@ -161,50 +132,26 @@ const Hero = () => {
             desc: "DBS Checked & Vetted",
           },
         ].map((badge, index) => (
-
           <div key={index} className="flex items-start gap-2.5">
-
-            <div className="w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center text-[#56ab2f]">
-
+            {/* Reduced icon box: w-11 -> w-8 */}
+            <div className="w-8 h-8 rounded-lg bg-white shadow-sm flex items-center justify-center text-[#56ab2f]">
               {React.cloneElement(badge.icon, {
-                size: 18,
+                size: 16, // Reduced icon size: 22 -> 16
                 strokeWidth: 2.5,
               })}
-
             </div>
-
-
             <div>
-
-              <p className="font-bold text-[#0b0642] text-sm leading-tight">
-
-                {badge.label}
-
-              </p>
-
-
-              <p className="text-[10px] text-slate-500 uppercase italic">
-
+              <p className="font-bold text-[#0b0642] text-xs md:text-sm leading-tight">{badge.label}</p>
+              <p className="text-[10px] text-slate-500 uppercase italic mt-0.5">
                 {badge.desc}
-
               </p>
-
             </div>
-
           </div>
-
         ))}
-
       </div>
-
-
     </div>
-
   </div>
-
 </main>
-
-
 
       {/* ABOUT TEASER */}
       <section className="py-16 md:py-24 bg-gray-50">

@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { Mail, Menu, X, Phone } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,25 +54,33 @@ const Navbar = () => {
       <div className="hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-slate-600">
         <NavLink
           to="/"
-          className={({ isActive }) => `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`}
+          className={({ isActive }) =>
+            `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`
+          }
         >
           Home
         </NavLink>
         <NavLink
           to="/about"
-          className={({ isActive }) => `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`}
+          className={({ isActive }) =>
+            `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`
+          }
         >
           About Us
         </NavLink>
         <NavLink
           to="/service"
-          className={({ isActive }) => `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`}
+          className={({ isActive }) =>
+            `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`
+          }
         >
           Services
         </NavLink>
-        <NavLink 
+        <NavLink
           to="/contact"
-          className={({ isActive }) => `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`}
+          className={({ isActive }) =>
+            `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`
+          }
         >
           Contact
         </NavLink>
@@ -86,7 +94,8 @@ const Navbar = () => {
             Call
           </a>
           <NavLink
-            to="/contact"
+            target="_blank"
+            to="https://chieldenglimited.bookingkoala.com/booknow"
             className="inline-flex items-center px-4 py-2 rounded-lg text-sm font-semibold text-white bg-linear-to-t from-[#2c700d] to-[#4a9328] hover:from-[#4a9328] hover:to-[#3c7a20] transition whitespace-nowrap"
           >
             Book a Service
@@ -94,17 +103,17 @@ const Navbar = () => {
         </div>
 
         {/* Email Section - Hidden on smaller desktops */}
-       
       </div>
 
       {/* Mobile/Tablet Hamburger Toggle */}
       <div className="lg:hidden flex items-center gap-4">
         {/* Compact Book Button for Tablet */}
         <NavLink
-            to="/contact"
-            className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-xs font-bold text-white bg-[#56ab2f] uppercase tracking-wider"
-          >
-            Book Now
+          target="_blank"
+          to="https://chieldenglimited.bookingkoala.com/booknow"
+          className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-xs font-bold text-white bg-[#56ab2f] uppercase tracking-wider"
+        >
+          Book Now
         </NavLink>
         <button
           className="text-slate-700 focus:outline-none transition-transform active:scale-95"
@@ -118,35 +127,45 @@ const Navbar = () => {
       {/* Mobile/Tablet Menu */}
       <div
         className={`lg:hidden absolute top-full left-0 right-0 bg-white shadow-2xl border-t border-slate-100 z-50 transition-all duration-300 ease-in-out overflow-y-auto ${
-          isOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0 pointer-events-none"
+          isOpen
+            ? "max-h-screen opacity-100"
+            : "max-h-0 opacity-0 pointer-events-none"
         }`}
       >
         <div className="flex flex-col items-center gap-5 py-8 px-6 text-center font-medium text-slate-700">
           <NavLink
             to="/"
             onClick={() => setIsOpen(false)}
-            className={({ isActive }) => `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`}
+            className={({ isActive }) =>
+              `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`
+            }
           >
             Home
           </NavLink>
           <NavLink
             to="/about"
             onClick={() => setIsOpen(false)}
-            className={({ isActive }) => `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`}
+            className={({ isActive }) =>
+              `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`
+            }
           >
             About Us
           </NavLink>
           <NavLink
             to="/service"
             onClick={() => setIsOpen(false)}
-            className={({ isActive }) => `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`}
+            className={({ isActive }) =>
+              `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`
+            }
           >
             Services
           </NavLink>
-          <NavLink 
-            to="/contact" 
+          <NavLink
+            to="/contact"
             onClick={() => setIsOpen(false)}
-            className={({ isActive }) => `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`}
+            className={({ isActive }) =>
+              `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`
+            }
           >
             Contact
           </NavLink>
@@ -161,15 +180,14 @@ const Navbar = () => {
               Call Now
             </a>
             <NavLink
-              to="/contact"
+              target="_blank"
+              to="https://chieldenglimited.bookingkoala.com/booknow"
               onClick={() => setIsOpen(false)}
               className="flex-1 inline-flex justify-center items-center px-6 py-3 rounded-xl bg-[#56ab2f] text-white font-bold shadow-lg shadow-emerald-200/50 hover:opacity-90 transition"
             >
               Book a Service
             </NavLink>
           </div>
-
-         
         </div>
       </div>
     </nav>

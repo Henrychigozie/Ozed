@@ -54,9 +54,9 @@ const AboutUs = () => {
           </div>
           <div className="fade-in">
             <div className="relative">
-              <img 
-                src="https://images.pexels.com/photos/4239128/pexels-photo-4239128.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                alt="Spotless Kitchen Interior" 
+              <img
+                src="https://images.pexels.com/photos/4239128/pexels-photo-4239128.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                alt="Spotless Kitchen Interior"
                 className="rounded-3xl shadow-2xl w-full h-[400px] object-cover"
               />
               <div className="absolute -bottom-6 -right-6 bg-white p-6 rounded-2xl shadow-xl hidden md:block">
@@ -75,7 +75,7 @@ const AboutUs = () => {
             <h2 className="text-3xl md:text-4xl font-bold text-[#0b0642]">Our Commitment</h2>
             <p className="mt-4 text-gray-600">We don’t just "tidy up." We restore.</p>
           </div>
-          
+
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
@@ -108,15 +108,15 @@ const AboutUs = () => {
       <section className="py-24 max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-16 items-center">
           <div className="order-2 lg:order-1 fade-in">
-             <img 
-                src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200" 
-                alt="Pristine Living Room" 
+             <img
+                src="https://images.pexels.com/photos/1643383/pexels-photo-1643383.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                alt="Pristine Living Room"
                 className="rounded-3xl shadow-2xl w-full h-[500px] object-cover max-sm:hidden"
               />
           </div>
           <div className="order-1 lg:order-2 fade-in space-y-8">
             <h2 className="text-3xl md:text-4xl font-bold text-[#0b0642]">Why London Chooses CHIELDENG LIMITED</h2>
-            
+
             <div className="space-y-6">
               {[
                 { label: "Experienced Professionals", icon: <Award className="text-[#56ab2f]"/>, text: "Only vetted, trained cleaners enter your home." },
@@ -142,6 +142,8 @@ const AboutUs = () => {
       </section>
 
       <FooterSection/>
+
+
     </div>
   );
 };

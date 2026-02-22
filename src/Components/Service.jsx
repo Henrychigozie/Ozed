@@ -101,7 +101,7 @@ const Service = ({ onNavigate }) => {
                   className="w-full py-3 px-4 bg-white border-2 border-[#56ab2f] text-[#56ab2f] rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#56ab2f] hover:text-white transition-all duration-300"
                 >
                   <CalendarCheck size={18} />
-                  Book This Service
+                  Book a Service
                 </Link>
               </div>
             ))}

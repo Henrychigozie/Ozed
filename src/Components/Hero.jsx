@@ -11,27 +11,70 @@ import {
   Bath,
   ChevronDown,
   CheckCircle2,
+  Sparkles,
+  CalendarCheck
 } from "lucide-react";
 
 import FooterSection from "../Components/footer";
 import heroimage from "../assets/image002.png";
-// import heroimage from "../assets/housewife-young-smiling-woman-with-basin-with-cleansing-appliances.jpg";
+
 const Hero = () => {
-  // 1. STATE FOR DROPDOWN AND IMAGE LOADING
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [selectedService, setSelectedService] = useState("Select a Service");
   const [imageLoaded, setImageLoaded] = useState(false);
+  
+  // State to track which service card details are expanded
+  const [expandedService, setExpandedService] = useState(null);
 
-  // UPDATED SERVICE LIST
-  const services = [
-    "Residential Clean",
-    "End of Tenancy",
-    "Commercial Cleaning",
-    "Oven / Kitchen Special",
+  // Service Data (Mirroring your Service Page)
+  const servicesData = [
+    {
+      title: "Standard Cleaning",
+      icon: <Key size={24} />,
+      desc: [
+        "Dusting and surface wiping",
+        "Sweeping, mopping, vacuuming",
+        "Kitchen and bathroom cleaning",
+        "Trash removal",
+        "Interior window cleaning"
+      ],
+      deal: false,
+    },
+    {
+      title: "Deep Cleaning",
+      icon: <Utensils size={24} />,
+      desc: [
+        "Intensive kitchen and Bathroom scrubbing",
+        "Baseboards and door frames",
+        "Hard-to-reach areas",
+        "Post-construction cleaning"
+      ],
+      deal: false,
+    },
+    {
+      title: "Move-In/Move-Out Cleaning",
+      icon: <Bath size={24} />,
+      desc: [
+        "Full room cleaning",
+        "Cabinets and closets",
+        "Deep kitchen and bathroom sanitation",
+        "Floor cleaning",
+        "Appliances interior cleaning"
+      ],
+      deal: true,
+    },
+  ];
+
+  const services = ["Standard Cleaning", "Deep Cleaning", "Move-In/Move-Out Cleaning"];
+
+  const trustAvatars = [
+    "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=faces",
+    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=faces",
+    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=faces",
+    "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop&crop=faces",
   ];
 
   useEffect(() => {
-    // Fade-in animation observer
     const faders = document.querySelectorAll(".fade-in");
     const observer = new IntersectionObserver(
       (entries) => {
@@ -42,11 +85,10 @@ const Hero = () => {
           }
         });
       },
-      { threshold: 0.25 },
+      { threshold: 0.25 }
     );
     faders.forEach((el) => observer.observe(el));
 
-    // Carousel animation
     const track = document.querySelector(".carousel-track");
     if (!track) return;
     let index = 0;
@@ -62,8 +104,12 @@ const Hero = () => {
     };
   }, []);
 
+  const toggleDetails = (title) => {
+    setExpandedService(expandedService === title ? null : title);
+  };
+
   return (
-    <div className=" font-sans text-slate-800 h-screen w-full mt-16">
+    <div className="font-sans text-slate-800 w-full mt-16">
       {/* Banner */}
       <div className="bg-[#00245B] py-4 px-6 flex justify-center items-center max-md:text-center">
         <p className="text-white text-sm md:text-base font-normal tracking-wide">
@@ -71,98 +117,78 @@ const Hero = () => {
           Move-In/Move-Out cleaning. Book today and secure your deal!
         </p>
       </div>
+
       {/* HERO SECTION */}
-    <main className="relative overflow-hidden bg-slate-100">
-  <div className="absolute inset-0 z-0">
-  <img
-    src={heroimage}
-    alt="Professional cleaning service"
-    onLoad={() => setImageLoaded(true)}
-    className={`w-full h-full object-cover object-left transition-opacity duration-1000 ease-in-out ${
-      imageLoaded ? "opacity-100" : "opacity-0"
-    }`}
-  />
+      <main className="relative overflow-hidden bg-slate-100">
+        <div className="absolute inset-0 z-0">
+          <img
+            src={heroimage}
+            alt="Professional cleaning service"
+            onLoad={() => setImageLoaded(true)}
+            className={`w-full h-full object-cover object-left transition-opacity duration-1000 ease-in-out ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <div className={`absolute inset-0 transition-opacity duration-1000 bg-linear-to-r from-slate-100 via-slate-100/40 to-transparent md:w-2/3 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+          />
+          <div className="absolute inset-0 bg-[#0b0642]/5 md:hidden" />
+        </div>
 
-  {/* --- Overlay Layer --- */}
-  {/* This creates a fade from the left (solid) to the right (transparent) */}
-  <div 
-    className={`absolute inset-0 transition-opacity duration-1000 bg-linear-to-r from-slate-100 via-slate-100/20 to-transparent md:w-2/3 ${
-      imageLoaded ? "opacity-100" : "opacity-0"
-    }`} 
-  />
-  
-  {/* Optional: A very subtle dark tint for mobile only to help white badges stand out */}
-  <div className="absolute inset-0 bg-[#0b0642]/5 md:hidden" />
-</div>
-
-  <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 min-h-[70vh] md:min-h-[80vh] lg:min-h-screen flex items-center">
-    {/* Constraining width to md:w-5/12 ensures the text doesn't cover the right side of the image */}
-    <div className="w-full md:w-5/12 space-y-4 md:space-y-6 text-center md:text-left">
-      
-      {/* Reduced H1: 4xl/5xl -> 3xl/4xl */}
-      <h1 className="text-3xl sm:text-3xl lg:text-4xl font-extrabold text-[#0b0642] leading-tight">
-        Expert Cleaning Services in London
-      </h1>
-
-      {/* Reduced Pricing: 3xl/5xl -> xl/3xl */}
-      <p className="text-lg sm:text-xl text-[#0b0642e5] font-semibold">
-        Starting from{" "}
-        <span className="text-[#56ab2f] text-3xl sm:text-3xl lg:text-4xl font-bold">
-          £25 - £30
-        </span>{" "}
-        <span className="text-sm font-medium">Per Room</span>
-      </p>
-
-      {/* Reduced italic text: lg -> sm/base */}
-      <p className="text-sm md:text-base text-[#0b0642d0] font-medium italic">
-        Professional & Reliable Cleaning for Your Home
-      </p>
-
-      <div className="flex flex-col sm:flex-row gap-4 pt-2 justify-center md:justify-start">
-        <button className="bg-linear-to-t from-[#1c4b77] to-[#23486a] text-white px-6 py-2.5 rounded-lg font-bold text-sm md:text-base shadow-lg transition active:scale-95 hover:brightness-140 ">
-          Book a Cleaning
-        </button>
-      </div>
-
-      {/* Compact Badges: smaller icons and text sizes */}
-      <div className="pt-6 flex flex-wrap justify-center md:justify-start gap-6 md:gap-6">
-        {[
-          {
-            icon: <ShieldCheck />,
-            label: "Fully Insured",
-            desc: "£5m Public Liability",
-          },
-          {
-            icon: <Star />,
-            label: "Top Rated",
-            desc: "4.9/5 Average Rating",
-          },
-          {
-            icon: <ThumbsUp />,
-            label: "Expert Staff",
-            desc: "DBS Checked & Vetted",
-          },
-        ].map((badge, index) => (
-          <div key={index} className="flex items-start gap-3">
-            {/* Reduced icon box: w-11 -> w-8 */}
-            <div className="w-9 h-9 rounded-lg bg-white shadow-sm flex items-center justify-center text-[#56ab2f]">
-              {React.cloneElement(badge.icon, {
-                size: 16, // Reduced icon size: 22 -> 16
-                strokeWidth: 2.5,
-              })}
-            </div>
-            <div>
-              <p className="font-bold text-[#0b0642] text-[14px] leading-tight">{badge.label}</p>
-              <p className="text-[12px] text-slate-800 uppercase italic mt-0.5">
-                {badge.desc}
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-20 min-h-[70vh] md:min-h-[80vh] lg:min-h-screen flex items-center">
+          <div className="w-full md:w-5/12 space-y-6 md:space-y-8 text-center md:text-left">
+            <div className="space-y-4">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-[#0b0642] leading-tight">
+                Expert Cleaning Services in London
+              </h1>
+              <p className="text-sm md:text-base text-[#0b0642d0] font-medium italic">
+                Professional & Reliable Cleaning for Your Home & Office
               </p>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[#0b0642] font-semibold text-sm">
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <CheckCircle2 size={18} className="text-[#56ab2f]" /> Fully Insured Staff
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <CheckCircle2 size={18} className="text-[#56ab2f]" /> Eco-Friendly Products
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <CheckCircle2 size={18} className="text-[#56ab2f]" /> 100% Satisfaction
+              </div>
+              <div className="flex items-center justify-center md:justify-start gap-2">
+                <CheckCircle2 size={18} className="text-[#56ab2f]" /> Flexible Scheduling
+              </div>
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-4 pt-2 justify-center md:justify-start">
+              <Link to="/contact" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="bg-linear-to-t from-[#1c4b77] to-[#23486a] text-white px-8 py-3 rounded-xl font-bold text-sm md:text-base shadow-lg transition active:scale-95 hover:brightness-110 text-center">
+                Book a Cleaning
+              </Link>
+              <Link to="/service" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="bg-white border-2 border-slate-200 text-[#0b0642] px-8 py-3 rounded-xl font-bold text-sm md:text-base transition hover:bg-slate-50 active:scale-95 text-center">
+                Our Services
+              </Link>
+            </div>
+
+            <div className="pt-8 border-t border-slate-300/50 flex flex-col md:flex-row items-center gap-4 md:gap-6">
+              <div className="flex -space-x-3">
+                {trustAvatars.map((url, i) => (
+                  <img key={i} src={url} alt="Customer" className="w-10 h-10 rounded-full border-2 border-white object-cover shadow-sm" />
+                ))}
+              </div>
+              <div className="text-center md:text-left">
+                <p className="text-xs md:text-sm font-bold text-[#0b0642]">
+                  Trusted by <span className="text-[#56ab2f]">500+</span> Happy Clients
+                </p>
+                <div className="flex justify-center md:justify-start text-yellow-400">
+                  {[...Array(5)].map((_, i) => (<Star key={i} size={12} fill="currentColor" />))}
+                </div>
+              </div>
+            </div>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</main>
+        </div>
+      </main>
 
       {/* ABOUT TEASER */}
       <section className="py-16 md:py-24 bg-gray-50">
@@ -178,248 +204,82 @@ const Hero = () => {
                       "https://images.pexels.com/photos/1457842/pexels-photo-1457842.jpeg?auto=compress&cs=tinysrgb&w=1200",
                     ].map((src, i) => (
                       <div key={i} className="carousel-slide">
-                        <img
-                          src={src}
-                          alt="Luxury home interior"
-                          loading="lazy"
-                          className="w-full h-[280px] object-cover rounded-xl filter brightness-95 contrast-105 saturate-90"
-                        />
+                        <img src={src} alt="Luxury interior" loading="lazy" className="w-full h-[280px] object-cover rounded-xl filter brightness-95" />
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
             </div>
-
             <div className="order-1 lg:order-2 space-y-8 fade-in">
-              <h3 className="text-3xl md:text-4xl font-bold text-[#0b0642]">
-                Why Choose CHIELDENG LIMITED?
-              </h3>
-              <p className="text-lg text-gray-700 max-w-xl">
-                Expert -cleaning services crafted for refined homes in London.
-                Our discreet professionals deliver impeccable results using
-                premium, eco-conscious products.
-              </p>
-              <Link
-                to="/about"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="group inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-t from-[#1c4b77] to-[#23486a] text-white text-lg font-medium hover:brightness-110 transition-all shadow-lg active:scale-95"
-              >
-                Discover Our Standards
-                <ChevronRight
-                  className="ml-2 transition-transform group-hover:translate-x-1"
-                  size={20}
-                />
+              <h3 className="text-3xl md:text-4xl font-bold text-[#0b0642]">Why Choose CHIELDENG LIMITED?</h3>
+              <p className="text-lg text-gray-700 max-w-xl">Expert cleaning services crafted for refined homes in London. Our discreet professionals deliver impeccable results using premium, eco-conscious products.</p>
+              <Link to="/about" onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })} className="group inline-flex items-center px-6 py-3 rounded-xl bg-gradient-to-t from-[#1c4b77] to-[#23486a] text-white text-lg font-medium hover:brightness-110 transition-all shadow-lg active:scale-95">
+                Discover Our Standards <ChevronRight className="ml-2 transition-transform group-hover:translate-x-1" size={20} />
               </Link>
             </div>
           </div>
         </div>
       </section>
 
-      {/* SERVICE GRID INTRO - UPDATED WITH CORRECT SERVICES */}
-      <section className="py-16 bg-slate-50">
+      {/* SERVICES DROPDOWN SECTION */}
+      <section id="services-section" className="py-16 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-12 fade-in">
-            <h2 className="text-2xl md:text-3xl font-bold text-[#0b0642] mb-2">
-              Our Professional Services
-            </h2>
-            <p className="text-slate-500 font-medium">
-              Click a service to explore our expertise and pricing
-            </p>
+            <h2 className="text-2xl md:text-3xl font-bold text-[#0b0642] mb-2">Our Professional Services</h2>
+            <p className="text-slate-500 font-medium">Click a service to explore our expertise and what's included</p>
           </div>
 
           <div className="flex flex-wrap justify-center gap-6">
-            {[
-              { title: "End of Tenancy", icon: <Key size={24} />, deal: false },
-              {
-                title: "Commercial Cleaning",
-                icon: <Utensils size={24} />,
-                deal: false,
-              },
-              {
-                title: "Oven / Kitchen Special",
-                icon: <Bath size={24} />,
-                deal: true,
-              },
-            ].map((service, idx) => (
-              <Link
-                key={idx}
-                to="/service"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="fade-in relative group bg-white p-10 rounded-2xl shadow-sm border border-slate-100 flex items-center gap-4 hover:shadow-xl hover:border-[#56ab2f30] transition-all duration-300 cursor-pointer text-left active:scale-95"
-              >
-                <div className="w-12 h-12 bg-slate-50 rounded-xl flex items-center justify-center text-[#2d5a84] group-hover:bg-[#56ab2f] group-hover:text-white transition-all duration-300 shadow-inner">
-                  {service.icon}
-                </div>
-                <div className="flex flex-col">
-                  <span className="font-bold text-[#0b0642] text-lg group-hover:text-[#56ab2f] transition-colors">
-                    {service.title}
-                  </span>
-                  <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider flex items-center gap-1">
-                    View Details{" "}
-                    <ChevronRight
-                      size={12}
-                      className="group-hover:translate-x-1 transition-transform"
-                    />
-                  </span>
-                </div>
-                {service.deal && (
-                  <span className="absolute -top-2 -right-2 bg-[#e91e63] text-white text-[10px] font-black px-2 py-1 rounded shadow-md italic transform rotate-3">
-                    DEAL
-                  </span>
-                )}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* HOW CHIELDENG LIMITED WORKS */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 fade-in">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0b0642] mb-4">
-              How CHIELDENG LIMITED Services Works
-            </h2>
-            <p className="text-slate-500 text-lg">
-              Professional cleaning in three simple steps
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-12 text-center">
-            <div className="fade-in space-y-6 group">
-              <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto transition-transform group-hover:scale-110 duration-300 shadow-sm border border-slate-100">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/3652/3652191.png"
-                  alt="Customise"
-                  className="w-12 h-12 opacity-80"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-[#0b0642]">
-                <span className="text-slate-300 mr-2 text-2xl">1.</span>{" "}
-                Customise & Book
-              </h3>
-              <p className="text-gray-600 leading-relaxed px-4">
-                Just specify a few details, pick the date and time, we'll send
-                the right professional.
-              </p>
-            </div>
-
-            <div className="fade-in space-y-6 group">
-              <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto transition-transform group-hover:scale-110 duration-300 shadow-sm border border-slate-100">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/2329/2329013.png"
-                  alt="Manage"
-                  className="w-12 h-12 opacity-80"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-[#0b0642]">
-                <span className="text-slate-300 mr-2 text-2xl">2.</span> Easily
-                manage online
-              </h3>
-              <p className="text-gray-600 leading-relaxed px-4">
-                Check prices and availability, re-schedule, re-book or cancel
-                your service any time you like.
-              </p>
-            </div>
-
-            <div className="fade-in space-y-6 group">
-              <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto transition-transform group-hover:scale-110 duration-300 shadow-sm border border-slate-100">
-                <img
-                  src="https://cdn-icons-png.flaticon.com/512/3048/3048122.png"
-                  alt="Enjoy"
-                  className="w-12 h-12 opacity-80"
-                />
-              </div>
-              <h3 className="text-xl font-bold text-[#0b0642]">
-                <span className="text-slate-300 mr-2 text-2xl">3.</span> Enjoy
-                your time!
-              </h3>
-              <p className="text-gray-600 leading-relaxed px-4">
-                Rest, work, play, live... while the professional takes care of
-                everything.
-              </p>
-            </div>
-          </div>
-
-          <div className="mt-16 text-center fade-in">
-            <Link
-              to="/service"
-              className="inline-block bg-[#e91e63] hover:bg-[#d81557] text-white px-10 py-4 rounded-lg font-bold text-lg shadow-lg transition-all active:scale-95"
-            >
-              Book a service
-            </Link>
-            <p className="mt-4 text-slate-400 text-sm font-medium">
-              Book a service in 30 seconds
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* TESTIMONIALS */}
-      <section className="py-20 bg-slate-50 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="text-center mb-16 fade-in">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0b0642] mb-4">
-              What Our Clients Say
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                name: "Sarah Jenkins",
-                role: "London Homeowner",
-                hook: "I finally stopped apologizing for the mess.",
-                quote:
-                  "CHIELDENG LIMITED didn't just clean the kitchen; they gave me my weekends back with my kids.",
-                tags: " Clean",
-              },
-              {
-                name: "Marcus Thorne",
-                role: "Property Manager",
-                hook: "The 'CHIELDENG LIMITED Glow' is real.",
-                quote:
-                  "I’ve used dozens of services for my rentals, but these are the first people who actually move the furniture.",
-                tags: "End of Tenancy",
-              },
-              {
-                name: "Elena Rodriguez",
-                role: "Working Professional",
-                hook: "A literal weight off my shoulders.",
-                quote:
-                  "Coming home to a spotless house after a 10-hour shift is a form of self-care.",
-                tags: "Regular Service",
-              },
-            ].map((testimonial, idx) => (
+            {servicesData.map((service, idx) => (
               <div
                 key={idx}
-                className="fade-in group bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-500 flex flex-col justify-between"
+                className="fade-in w-full md:w-[380px] bg-white rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition-all duration-300 overflow-hidden"
               >
-                <div>
-                  <div className="flex items-center gap-1 mb-6 text-yellow-400">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={18} fill="currentColor" />
-                    ))}
+                {/* Main clickable area */}
+                <div 
+                  onClick={() => toggleDetails(service.title)}
+                  className="p-8 flex items-center gap-4 cursor-pointer hover:bg-slate-50/50 transition-colors relative"
+                >
+                  <div className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${expandedService === service.title ? 'bg-[#56ab2f] text-white' : 'bg-slate-50 text-[#2d5a84]'}`}>
+                    {service.icon}
                   </div>
-                  <h4 className="text-xl font-bold text-[#0b0642] mb-3 group-hover:text-[#56ab2f]">
-                    "{testimonial.hook}"
-                  </h4>
-                  <p className="text-slate-600 leading-relaxed italic mb-8">
-                    {testimonial.quote}
-                  </p>
+                  <div className="flex flex-col">
+                    <span className={`font-bold text-lg transition-colors ${expandedService === service.title ? 'text-[#56ab2f]' : 'text-[#0b0642]'}`}>
+                      {service.title}
+                    </span>
+                    <span className="text-xs text-slate-400 font-semibold uppercase tracking-wider flex items-center gap-1">
+                      {expandedService === service.title ? "Hide Details" : "View Details"}
+                      <ChevronDown size={12} className={`transition-transform duration-300 ${expandedService === service.title ? "rotate-180" : ""}`} />
+                    </span>
+                  </div>
+                  {service.deal && (
+                    <span className="absolute top-4 right-4 bg-[#e91e63] text-white text-[10px] font-black px-2 py-1 rounded shadow-md italic transform rotate-3">DEAL</span>
+                  )}
                 </div>
-                <div className="flex items-center justify-between pt-6 border-t border-slate-50">
-                  <div>
-                    <p className="font-bold text-[#0b0642]">
-                      {testimonial.name}
-                    </p>
-                    <p className="text-xs text-slate-400 font-medium uppercase">
-                      {testimonial.role}
-                    </p>
-                  </div>
-                  <span className="bg-slate-50 text-[#56ab2f] text-[10px] font-bold px-3 py-1 rounded-full">
-                    {testimonial.tags}
-                  </span>
+
+                {/* Dropdown Content */}
+                <div 
+                  className={`transition-all duration-500 ease-in-out border-t border-slate-50 bg-slate-50/30 ${
+                    expandedService === service.title ? "max-h-[500px] opacity-100 py-6 px-8" : "max-h-0 opacity-0 overflow-hidden"
+                  }`}
+                >
+                  <p className="text-xs font-bold text-[#0b0642] uppercase mb-3 tracking-widest">Included in service:</p>
+                  <ul className="space-y-2 mb-6">
+                    {service.desc.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-slate-600">
+                        <CheckCircle2 size={14} className="text-[#56ab2f] mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                  <Link 
+                    to="#"
+                    onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                    className="flex items-center justify-center gap-2 w-full py-3 bg-[#0b0642] hover:bg-[#1c4b77] text-white rounded-xl text-sm font-bold transition-all"
+                  >
+                    <CalendarCheck size={16} /> Book {service.title}
+                  </Link>
                 </div>
               </div>
             ))}
@@ -427,155 +287,13 @@ const Hero = () => {
         </div>
       </section>
 
-      {/* CONTACT & FORM */}
-      <section className="relative py-24 overflow-hidden min-h-[90vh] flex items-center">
-        <div className="absolute inset-0 z-0 bg-slate-900">
-          <img
-            src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000"
-            alt="Luxury clean interior"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px] bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent" />
-        </div>
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="fade-in space-y-10 text-white">
-              <div className="space-y-4">
-                <span className="bg-[#56ab2f] text-white text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full">
-                  Get in Touch
-                </span>
-                <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">
-                  Ready to experience <br />{" "}
-                  <span className="text-[#56ab2f]">
-                    the CHIELDENG LIMITED standard?
-                  </span>
-                </h2>
-              </div>
-            </div>
-
-            <div className="fade-in bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-[3rem] shadow-2xl border border-white/20">
-              <h3 className="text-2xl font-bold text-[#0b0642] mb-8">
-                Request a Quote
-              </h3>
-              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">
-                      Full Name
-                    </label>
-                    <input
-                      type="text"
-                      placeholder="Sarah Jenkins"
-                      className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">
-                      Phone Number
-                    </label>
-                    <input
-                      type="tel"
-                      placeholder="07123 456 789"
-                      className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">
-                      Email Address
-                    </label>
-                    <input
-                      type="email"
-                      placeholder="sarah@example.com"
-                      className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none"
-                    />
-                  </div>
-
-                  {/* DROPDOWN INTEGRATION */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">
-                      Service Type
-                    </label>
-                    <div className="relative">
-                      <button
-                        type="button"
-                        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-                        className={`w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-slate-50 border transition-all duration-300 outline-none
-                          ${isDropdownOpen ? "bg-white border-[#56ab2f] ring-2 ring-[#56ab2f]" : "border-slate-100"}`}
-                      >
-                        <span
-                          className={`text-sm font-medium ${selectedService === "Select a Service" ? "text-slate-400" : "text-[#0b0642]"}`}
-                        >
-                          {selectedService}
-                        </span>
-                        <ChevronDown
-                          className={`text-slate-400 transition-transform duration-300 ${isDropdownOpen ? "rotate-180 text-[#56ab2f]" : ""}`}
-                          size={18}
-                        />
-                      </button>
-
-                      {isDropdownOpen && (
-                        <>
-                          <div
-                            className="fixed inset-0 z-20"
-                            onClick={() => setIsDropdownOpen(false)}
-                          />
-                          <div className="absolute bottom-full mb-2 left-0 right-0 z-30 bg-white border border-slate-100 rounded-2xl shadow-2xl overflow-hidden">
-                            <div className="py-2">
-                              {services.map((service) => (
-                                <button
-                                  key={service}
-                                  type="button"
-                                  onClick={() => {
-                                    setSelectedService(service);
-                                    setIsDropdownOpen(false);
-                                  }}
-                                  className="w-full text-left px-5 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#56ab2f] flex items-center justify-between"
-                                >
-                                  {service}
-                                  {selectedService === service && (
-                                    <CheckCircle2
-                                      size={14}
-                                      className="text-[#56ab2f]"
-                                    />
-                                  )}
-                                </button>
-                              ))}
-                            </div>
-                          </div>
-                        </>
-                      )}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-xs font-black text-[#0b0642] uppercase ml-1">
-                    How can we help?
-                  </label>
-                  <textarea
-                    rows="3"
-                    placeholder="Tell us a bit about your property..."
-                    className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none resize-none"
-                  />
-                </div>
-
-                <button className="w-full bg-linear-to-t from-[#2c700d] to-[#4a9328] text-white py-5 rounded-2xl font-bold text-lg shadow-xl hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-3">
-                  Send Enquiry
-                  <ChevronRight size={22} strokeWidth={3} />
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <FooterSection />
+    
     </div>
   );
 };
 
 export default Hero;
+
+
+
+

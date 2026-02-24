@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
-import { Home, Key, Utensils, Bath, CheckCircle2, Calculator, ChevronRight } from "lucide-react";
-import FooterSection  from "../Components/footer";
+import { Home, Sparkles, Key, CheckCircle2, Calculator, CalendarCheck } from "lucide-react";
+import FooterSection from "../Components/footer";
+import { Link } from "react-router-dom";
 
 const Service = ({ onNavigate }) => {
   useEffect(() => {
@@ -21,33 +22,45 @@ const Service = ({ onNavigate }) => {
   }, []);
 
   const serviceCards = [
-    // {
-    //   title: "Residential Deep Clean",
-    //   desc: "Comprehensive deep cleaning for all rooms including kitchens, bathrooms, bedrooms, and living areas.",
-    //   icon: <Home className="w-8 h-8" />,
-    // },
     {
-      title: "End of Tenancy",
-      desc: "Thorough cleaning to help tenants get their deposit back and prepare properties for new occupants.",
+      title: "Standard Cleaning",
+      desc: [
+        "Dusting and surface wiping",
+        "Sweeping, mopping, vacuuming",
+        "Kitchen and bathroom cleaning",
+        "Trash removal",
+        "Interior window cleaning"
+      ],
+      icon: <Home className="w-8 h-8" />,
+    },
+    {
+      title: "Deep Cleaning",
+      desc: [
+        "Intensive kitchen and Bathroom scrubbing",
+        "Baseboards and door frames",
+        "Hard-to-reach areas",
+        "Post-construction cleaning"
+      ],
+      icon: <Sparkles className="w-8 h-8" />,
+    },
+    {
+      title: "Move-In/Move-Out Cleaning",
+      desc: [
+        "Full room cleaning",
+        "Cabinets and closets",
+        "Deep kitchen and bathroom sanitation",
+        "Floor cleaning",
+        "Wall spot cleaning",
+        "Appliances interior cleaning"
+      ],
       icon: <Key className="w-8 h-8" />,
-    },
-    {
-      title: "Commercial Cleaning",
-      desc: "Professional cleaning solutions for offices and workspaces to maintain a hygienic and productive environment.",
-      icon: <Utensils className="w-8 h-8" />,
-    },
-    {
-      title: "Oven / Kitchen Special",
-      desc: "Targeted cleaning for kitchen appliances and surfaces, removing stubborn grease and grime.",
-      icon: <Bath className="w-8 h-8" />,
     },
   ];
 
   const priceList = [
-    // { item: "Residential Deep Clean", price: "£25 - £30 (Per Room)" },
-    { item: "Oven / Kitchen Special", price: "£50 - £80" },
-    { item: "End of Tenancy", price: "From £120" },
-    { item: "Commercial Cleaning", price: "Custom Quote" },
+    { item: "Move In / Move Out", price: "£50 - £80" },
+    { item: "Standard Cleaning", price: "From £120" },
+    { item: "Deep Cleaning", price: "Custom Quote" },
     { item: "Full Property Clean", price: "Competitive Rates" },
   ];
 
@@ -62,19 +75,37 @@ const Service = ({ onNavigate }) => {
           </div>
 
           <div className="flex flex-col md:flex-row flex-wrap justify-center gap-8 px-4">
-  {serviceCards.map((service, index) => (
-    <div 
-      key={index} 
-      className="fade-in group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-300 w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] max-w-[400px]"
-    >
-      <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-[#56ab2f] mb-6 group-hover:scale-110 transition-transform">
-        {service.icon}
-      </div>
-      <h4 className="text-xl font-bold text-[#0b0642] mb-3">{service.title}</h4>
-      <p className="text-gray-600 leading-relaxed">{service.desc}</p>
-    </div>
-  ))}
-</div>
+            {serviceCards.map((service, index) => (
+              <div 
+                key={index} 
+                className="fade-in group p-8 rounded-3xl bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-2xl transition-all duration-300 w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-2rem)] max-w-[400px] flex flex-col justify-between"
+              >
+                <div>
+                  <div className="w-14 h-14 rounded-2xl bg-white shadow-sm flex items-center justify-center text-[#56ab2f] mb-6 group-hover:scale-110 transition-transform">
+                    {service.icon}
+                  </div>
+                  <h4 className="text-xl font-bold text-[#0b0642] mb-3">{service.title}</h4>
+                  <ul className="text-gray-600 space-y-2 mb-8">
+                    {service.desc.map((item, i) => (
+                      <li key={i} className="text-sm flex items-start gap-2">
+                        <span className="text-[#56ab2f] mt-1">•</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <Link
+                  to="/contact"
+                  onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                  className="w-full py-3 px-4 bg-white border-2 border-[#56ab2f] text-[#56ab2f] rounded-xl font-bold flex items-center justify-center gap-2 hover:bg-[#56ab2f] hover:text-white transition-all duration-300"
+                >
+                  <CalendarCheck size={18} />
+                  Book a Service
+                </Link>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -100,10 +131,14 @@ const Service = ({ onNavigate }) => {
               ))}
             </ul>
 
-            <button className="w-full mt-10 bg-gradient-to-t from-[#1c4b77] to-[#23486a] text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:brightness-110 transition flex items-center justify-center gap-2 active:scale-95">
+            <Link 
+              to="/contact"
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="w-full mt-10 bg-gradient-to-t from-[#1c4b77] to-[#23486a] text-white py-4 rounded-2xl font-bold text-lg shadow-lg hover:brightness-110 transition flex items-center justify-center gap-2 active:scale-95"
+            >
               <Calculator size={22} />
               Request a Custom Quote
-            </button>
+            </Link>
           </div>
         </div>
       </section>

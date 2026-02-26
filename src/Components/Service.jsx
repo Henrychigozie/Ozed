@@ -110,7 +110,7 @@ const Service = ({ onNavigate }) => {
       </section>
 
       {/* SECTION 2: PRICING BREAKDOWN */}
-      <section className="py-20 bg-slate-50 border-t border-slate-200">
+      {/* <section className="py-20 bg-slate-50 border-t border-slate-200">
         <div className="max-w-3xl mx-auto px-6 lg:px-8">
           <div className="text-center mb-12 fade-in">
             <h2 className="text-3xl md:text-4xl font-extrabold text-[#0b0642] mb-4">Transparent Pricing</h2>
@@ -141,7 +141,7 @@ const Service = ({ onNavigate }) => {
             </Link>
           </div>
         </div>
-      </section>
+      </section> */}
 
       <FooterSection/>
     </div>

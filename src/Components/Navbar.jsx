@@ -76,14 +76,14 @@ const Navbar = () => {
         >
           Services
         </NavLink>
-        <NavLink
+        {/* <NavLink 
           to="/contact"
           className={({ isActive }) =>
             `${isActive ? "text-[#56ab2f] border-b-2 border-[#56ab2f]" : "hover:text-[#56ab2f]"} cursor-pointer transition-colors pb-1`
           }
         >
           Contact
-        </NavLink>
+        </NavLink> */}
 
         <div className="flex items-center gap-3 ml-2">
           <a
@@ -109,11 +109,10 @@ const Navbar = () => {
       <div className="lg:hidden flex items-center gap-4">
         {/* Compact Book Button for Tablet */}
         <NavLink
-          target="_blank"
-          to="https://chieldenglimited.bookingkoala.com/booknow"
-          className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-xs font-bold text-white bg-[#56ab2f] uppercase tracking-wider"
-        >
-          Book Now
+            to="#"
+            className="hidden sm:inline-flex items-center px-4 py-2 rounded-lg text-xs font-bold text-white bg-[#56ab2f] uppercase tracking-wider"
+          >
+            Book Now
         </NavLink>
         <button
           className="text-slate-700 focus:outline-none transition-transform active:scale-95"
@@ -160,15 +159,15 @@ const Navbar = () => {
           >
             Services
           </NavLink>
-          <NavLink
-            to="/contact"
+          {/* <NavLink 
+            to="/contact" 
             onClick={() => setIsOpen(false)}
             className={({ isActive }) =>
               `${isActive ? "text-[#56ab2f] text-lg font-bold" : "text-lg hover:text-[#56ab2f]"} transition-colors w-full`
             }
           >
             Contact
-          </NavLink>
+          </NavLink> */}
 
           <div className="w-full flex flex-col sm:flex-row gap-3 mt-4">
             <a

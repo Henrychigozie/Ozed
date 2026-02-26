@@ -17,7 +17,7 @@ function App() {
           <Route path="/" element={<Hero />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/service" element={<Service />} />
-          <Route path="/contact" element={<ContactPage />} />
+          {/* <Route path="/contact" element={<ContactPage />} /> */}
           <Route path="/booking" element={<BookingPage />} />
           {/* Fallback for 404s */}
           <Route path="*" element={<Hero />} />

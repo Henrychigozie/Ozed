@@ -286,8 +286,134 @@ const Hero = () => {
           </div>
         </div>
       </section>
+{/* HOW IT WORKS */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16 fade-in">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0b0642] mb-4">How CHIELDENG LIMITED Works</h2>
+            <p className="text-slate-500 text-lg">Professional cleaning in three simple steps</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-12 text-center">
+            {[
+              { step: "1", title: "Customise & Book", img: "https://cdn-icons-png.flaticon.com/512/3652/3652191.png", text: "Just specify a few details, pick the date and time, we'll send the right professional." },
+              { step: "2", title: "Easily manage online", img: "https://cdn-icons-png.flaticon.com/512/2329/2329013.png", text: "Check prices and availability, re-schedule, re-book or cancel your service any time." },
+              { step: "3", title: "Enjoy your time!", img: "https://cdn-icons-png.flaticon.com/512/3048/3048122.png", text: "Rest, work, play, live... while the professional takes care of everything." }
+            ].map((item, i) => (
+              <div key={i} className="fade-in space-y-6 group">
+                <div className="w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mx-auto transition-transform group-hover:scale-110 shadow-sm border border-slate-100">
+                  <img src={item.img} alt={item.title} className="w-12 h-12 opacity-80" />
+                </div>
+                <h3 className="text-xl font-bold text-[#0b0642]"><span className="text-slate-300 mr-2 text-2xl">{item.step}.</span> {item.title}</h3>
+                <p className="text-gray-600 leading-relaxed px-4">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-    
+      {/* TESTIMONIALS */}
+      <section className="py-20 bg-slate-50">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="text-center mb-16 fade-in">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-[#0b0642] mb-4">What Our Clients Say</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { name: "Sarah Jenkins", role: "London Homeowner", hook: "I finally stopped apologizing for the mess.", quote: "CHIELDENG LIMITED didn't just clean the kitchen; they gave me my weekends back.", tags: "Deep Clean" },
+              { name: "Marcus Thorne", role: "Property Manager", hook: "The 'CHIELDENG Glow' is real.", quote: "I’ve used dozens of services, but these are the first people who actually move the furniture.", tags: "Standard Cleaning" },
+              { name: "Elena Rodriguez", role: "Working Professional", hook: "A weight off my shoulders.", quote: "Coming home to a spotless house after a 10-hour shift is a form of self-care.", tags: "Regular Service" }
+            ].map((testimonial, idx) => (
+              <div key={idx} className="fade-in group bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-xl transition-all duration-500 flex flex-col justify-between">
+                <div>
+                  <div className="flex items-center gap-1 mb-6 text-yellow-400">
+                    {[...Array(5)].map((_, i) => (<Star key={i} size={18} fill="currentColor" />))}
+                  </div>
+                  <h4 className="text-xl font-bold text-[#0b0642] mb-3 group-hover:text-[#56ab2f]">"{testimonial.hook}"</h4>
+                  <p className="text-slate-600 leading-relaxed italic mb-8">{testimonial.quote}</p>
+                </div>
+                <div className="flex items-center justify-between pt-6 border-t border-slate-50">
+                  <div>
+                    <p className="font-bold text-[#0b0642]">{testimonial.name}</p>
+                    <p className="text-xs text-slate-400 font-medium uppercase">{testimonial.role}</p>
+                  </div>
+                  <span className="bg-slate-50 text-[#56ab2f] text-[10px] font-bold px-3 py-1 rounded-full">{testimonial.tags}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CONTACT FORM */}
+      <section className="relative py-24 overflow-hidden min-h-[90vh] flex items-center">
+        <div className="absolute inset-0 z-0 bg-slate-900">
+          <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000" alt="Interior" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[2px] bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent" />
+        </div>
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="fade-in space-y-10 text-white">
+              <div className="space-y-4">
+                <span className="bg-[#56ab2f] text-white text-xs font-bold uppercase tracking-[0.2em] px-4 py-1.5 rounded-full">Get in Touch</span>
+                <h2 className="text-4xl md:text-6xl font-extrabold leading-tight">Ready to experience <br /> <span className="text-[#56ab2f]">the CHIELDENG LIMITED standard?</span></h2>
+              </div>
+            </div>
+            <div className="fade-in bg-white/95 backdrop-blur-sm p-8 md:p-12 rounded-[3rem] shadow-2xl border border-white/20">
+              <h3 className="text-2xl font-bold text-[#0b0642] mb-8">Request a Quote</h3>
+              <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">Full Name</label>
+                    <input type="text" placeholder="Sarah Jenkins" className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">Phone Number</label>
+                    <input type="tel" placeholder="07123 456 789" className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none" />
+                  </div>
+                </div>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-2">
+                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">Email Address</label>
+                    <input type="email" placeholder="sarah@example.com" className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none" />
+                  </div>
+                  <div className="space-y-2">
+                    <label className="text-xs font-black text-[#0b0642] uppercase ml-1">Service Type</label>
+                    <div className="relative">
+                      <button type="button" onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={`w-full flex items-center justify-between px-5 py-4 rounded-2xl bg-slate-50 border transition-all duration-300 outline-none ${isDropdownOpen ? "bg-white border-[#56ab2f] ring-2 ring-[#56ab2f]" : "border-slate-100"}`}>
+                        <span className={`text-sm font-medium ${selectedService === "Select a Service" ? "text-slate-400" : "text-[#0b0642]"}`}>{selectedService}</span>
+                        <ChevronDown className={`text-slate-400 transition-transform duration-300 ${isDropdownOpen ? "rotate-180 text-[#56ab2f]" : ""}`} size={18} />
+                      </button>
+                      {isDropdownOpen && (
+                        <>
+                          <div className="fixed inset-0 z-20" onClick={() => setIsDropdownOpen(false)} />
+                          <div className="absolute bottom-full mb-2 left-0 right-0 z-30 bg-white border border-slate-100 rounded-2xl shadow-2xl overflow-hidden">
+                            <div className="py-2">
+                              {services.map((s) => (
+                                <button key={s} type="button" onClick={() => { setSelectedService(s); setIsDropdownOpen(false); }} className="w-full text-left px-5 py-3 text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-[#56ab2f] flex items-center justify-between">
+                                  {s} {selectedService === s && <CheckCircle2 size={14} className="text-[#56ab2f]" />}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-black text-[#0b0642] uppercase ml-1">How can we help?</label>
+                  <textarea rows="3" placeholder="Tell us a bit about your property..." className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 focus:bg-white focus:ring-2 focus:ring-[#56ab2f] outline-none resize-none" />
+                </div>
+                <button className="w-full bg-linear-to-t from-[#2c700d] to-[#4a9328] text-white py-5 rounded-2xl font-bold text-lg shadow-xl hover:scale-[1.02] transition-all active:scale-95 flex items-center justify-center gap-3">
+                  Send Enquiry <ChevronRight size={22} strokeWidth={3} />
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <FooterSection />
     </div>
   );
 };
